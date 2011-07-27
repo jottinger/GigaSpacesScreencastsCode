@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<persistence xmlns="http://java.sun.com/xml/ns/persistence"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="1.0">
+	<persistence-unit name="anyapi" transaction-type="RESOURCE_LOCAL">
+		<provider>org.apache.openjpa.persistence.PersistenceProviderImpl
+		</provider>
+		<class>com.gigaspaces.anyapi.Programmer</class>
+		<properties>
+			<property name="openjpa.ConnectionURL" value="jini://*/*/mySpace" />
+			<property name="openjpa.BrokerFactory" value="org.openspaces.jpa.BrokerFactory" />
+			<property name="openjpa.LockManager" value="none" />
+		</properties>
+	</persistence-unit>
+</persistence>
