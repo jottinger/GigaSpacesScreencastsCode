@@ -3,18 +3,19 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
-        <artifactId>GigaSpacesScreencastsCode</artifactId>
+        <artifactId>scaling</artifactId>
         <groupId>org.openspaces</groupId>
         <version>1.0</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>scaling</artifactId>
-    <packaging>pom</packaging>
-    <modules>
-        <module>scaling-common</module>
-        <module>scaling-cmdline</module>
-    </modules>
-
+    <artifactId>scaling-cmdline</artifactId>
+    <dependencies>
+        <dependency>
+            <groupId>org.openspaces</groupId>
+            <artifactId>scaling-common</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+    </dependencies>
 
 </project>
