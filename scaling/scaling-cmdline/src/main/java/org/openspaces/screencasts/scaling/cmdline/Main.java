@@ -34,22 +34,40 @@ public class Main {
 
     private static void runFactorization(ExecutorService service, List<String> numbers) {
         long start = System.currentTimeMillis();
+        long sum = runCalculationSet(service, numbers);
+        long end = System.currentTimeMillis();
+
+        System.out.println("discovered factors: " + sum + " elapsed time: " + (end - start) + "ms");
+    }
+
+    private static long runCalculationSet(ExecutorService service, List<String> numbers) {
         List<Future<TreeSet<BigInteger>>> futures = new ArrayList<Future<TreeSet<BigInteger>>>();
 
+        submitCalculations(service, numbers, futures);
+
+        return countFactors(futures);
+    }
+
+    @SuppressWarnings({"ConstantConditions"})
+    private static long countFactors(List<Future<TreeSet<BigInteger>>> futures) {
+        // Why can't IDEA handle this method? It says it's too complex to analyze. No idea why.
+        // ... probably the future stuff. But meh, whatever.
+        long sum = 0L;
+        for (Future<TreeSet<BigInteger>> future : futures) {
+            try {
+                TreeSet<BigInteger> set=future.get();
+                sum += set.size();
+            } catch (Exception ignored) {
+            }
+        }
+        return sum;
+    }
+
+    private static void submitCalculations(ExecutorService service, List<String> numbers, List<Future<TreeSet<BigInteger>>> futures) {
         for (final String n : numbers) {
             CalculateFactor c = new CalculateFactor(n);
             futures.add(service.submit(c));
         }
         service.shutdown();
-
-        long sum = 0;
-        for (Future<TreeSet<BigInteger>> c : futures) {
-            try {
-                sum += c.get().size();
-            } catch (Exception ignored) {
-            }
-        }
-        long end = System.currentTimeMillis();
-        System.out.println("discovered factors: " + sum + " elapsed time: " + (end - start) + "ms");
     }
 }
