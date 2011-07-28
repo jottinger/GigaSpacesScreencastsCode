@@ -10,6 +10,37 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>scaling-datagrid</artifactId>
+    <dependencies>
+        <dependency>
+            <groupId>org.openspaces</groupId>
+            <artifactId>scaling-common</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+    </dependencies>
 
-
+    <build>
+        <finalName>scaling-datagrid</finalName>
+        <plugins>
+            <plugin>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <configuration>
+                    <appendAssemblyId>false</appendAssemblyId>
+                    <attach>false</attach>
+                    <ignoreDirFormatExtensions>true</ignoreDirFormatExtensions>
+                    <descriptors>
+                        <descriptor>src/main/assembly/assembly.xml</descriptor>
+                    </descriptors>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>assembly</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>single</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
 </project>

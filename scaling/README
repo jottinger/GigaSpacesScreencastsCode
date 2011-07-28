@@ -17,3 +17,5 @@ compared to one, but the four-thread version will be roughly the same, etc.
 
 The scaling datagrid provides a gigaspaces stateful space.
 
+scaling-driver provides a web application and a command line to invoke the
+executor, worker, and event-driven examples.

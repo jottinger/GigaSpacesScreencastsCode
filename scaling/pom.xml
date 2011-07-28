@@ -14,6 +14,12 @@
     <modules>
         <module>scaling-common</module>
         <module>scaling-cmdline</module>
+        <module>scaling-worker</module>
+        <module>scaling-executor</module>
+        <module>scaling-datagrid</module>
+        <module>scaling-webmonitor</module>
+        <module>scaling-driver</module>
+        <module>scaling-event</module>
     </modules>
 
 
