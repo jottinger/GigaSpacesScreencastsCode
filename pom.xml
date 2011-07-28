@@ -20,6 +20,7 @@
 
     <modules>
         <module>anyapi</module>
+        <module>scaling</module>
     </modules>
 
     <dependencies>
