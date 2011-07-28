@@ -11,7 +11,7 @@ public class CalculateFactor implements Callable<TreeSet<BigInteger>>  {
     public static final BigInteger ZERO = BigInteger.ZERO;
     public static final BigInteger ONE = BigInteger.ONE;
     public static final BigInteger TWO = new BigInteger("2");
-    private BigInteger source;
+    private final BigInteger source;
 
     public CalculateFactor(String n) {
         this(new BigInteger(n));
