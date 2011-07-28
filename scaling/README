@@ -1,0 +1,19 @@
+So: we have a lot of modules here. What are they for?
+
+scaling-common contains the actual task to be performed; it's a simple
+"calculate the prime factors of N" task, where N is a BigInteger.
+
+scaling-cmdline is a simple driver that uses a standard ThreadPoolExecutor
+to run a series of calculation tasks, with three thread pools:
+
+* one thread
+* two threads
+* four threads
+
+The performance will top out with the number of cores. Thus, if you have
+a single-core machine, you'll see roughly the same performance out of all
+three; a dual-core machine will run roughly twice as quickly on two cores 
+compared to one, but the four-thread version will be roughly the same, etc.
+
+The scaling datagrid provides a gigaspaces stateful space.
+
