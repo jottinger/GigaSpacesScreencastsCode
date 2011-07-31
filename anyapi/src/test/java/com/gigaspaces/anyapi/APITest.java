@@ -25,7 +25,7 @@ public class APITest {
 
     @BeforeTest
     public void writeData() {
-        gigaSpace.clean();
+        gigaSpace.takeMultiple(new Object(), Integer.MAX_VALUE);
         gigaSpace.write(new Programmer(123, "Me", "groovy"));
         gigaSpace.write(new Programmer(345, "you", "java"));
     }
@@ -88,6 +88,7 @@ public class APITest {
             programmer = entityManager.find(Programmer.class, 345);
             System.out.println(programmer);
 
+            @SuppressWarnings({"JpaQlInspection"})
             TypedQuery<Programmer> query = entityManager.createQuery(
                     "SELECT p FROM com.gigaspaces.anyapi.Programmer p WHERE p.id=123", Programmer.class);
 
