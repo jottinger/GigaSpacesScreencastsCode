@@ -1,12 +1,10 @@
 package com.gigaspaces.anyapi;
 
-import com.gigaspaces.async.AsyncResult;
 import com.gigaspaces.document.SpaceDocument;
 import com.j_spaces.core.client.SQLQuery;
+import org.apache.openjpa.persistence.ArgumentException;
 import org.openspaces.core.GigaSpace;
 import org.openspaces.core.GigaSpaceConfigurer;
-import org.openspaces.core.executor.DistributedTask;
-import org.openspaces.core.executor.TaskGigaSpace;
 import org.openspaces.core.space.UrlSpaceConfigurer;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
@@ -22,7 +20,7 @@ import java.util.concurrent.Future;
 
 public class APITest {
     final GigaSpace gigaSpace = new GigaSpaceConfigurer(
-            new UrlSpaceConfigurer("jini://*/*/mySpace").create()).create();
+            new UrlSpaceConfigurer("/./mySpace").create()).create();
     Programmer programmer;
 
     @BeforeTest
@@ -85,15 +83,19 @@ public class APITest {
     public void testJPA() {
         /****************** JPA ********************************/
         EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("anyapi", null);
-        EntityManager entityManager = entityManagerFactory.createEntityManager();
-        programmer = entityManager.find(Programmer.class, 345);
-        System.out.println(programmer);
+        try {
+            EntityManager entityManager = entityManagerFactory.createEntityManager();
+            programmer = entityManager.find(Programmer.class, 345);
+            System.out.println(programmer);
 
-        TypedQuery<Programmer> query = entityManager.createQuery(
-                "SELECT p FROM com.gigaspaces.anyapi.Programmer p WHERE p.id=123", Programmer.class);
+            TypedQuery<Programmer> query = entityManager.createQuery(
+                    "SELECT p FROM com.gigaspaces.anyapi.Programmer p WHERE p.id=123", Programmer.class);
 
-        List<Programmer> resultList = query.getResultList();
-        System.out.println(resultList.get(0));
+            List<Programmer> resultList = query.getResultList();
+            System.out.println(resultList.get(0));
+        } catch (ArgumentException ae) {
+            System.out.println("Caught ArgumentException, expected in some runtime environments");
+        }
     }
 
     @Test(dependsOnMethods = "testJPA")
