@@ -16,10 +16,5 @@
             <artifactId>scaling-common</artifactId>
             <version>${project.version}</version>
         </dependency>
-        <dependency>
-            <groupId>org.testng</groupId>
-            <artifactId>testng</artifactId>
-            <version>${testngVersion}</version>
-        </dependency>
     </dependencies>
 </project>

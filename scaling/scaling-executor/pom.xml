@@ -11,5 +11,12 @@
 
     <artifactId>scaling-executor</artifactId>
 
+    <dependencies>
+        <dependency>
+            <groupId>org.openspaces</groupId>
+            <artifactId>scaling-common</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+    </dependencies>
 
 </project>
