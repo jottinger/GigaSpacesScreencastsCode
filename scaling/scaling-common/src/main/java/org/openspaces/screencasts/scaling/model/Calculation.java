@@ -14,6 +14,15 @@ public class Calculation {
     BigInteger source;
     Set<BigInteger> factors;
     Boolean processed;
+    String eventClass;
+
+    public String getEventClass() {
+        return eventClass;
+    }
+
+    public void setEventClass(String eventClass) {
+        this.eventClass = eventClass;
+    }
 
     public Calculation() {
     }

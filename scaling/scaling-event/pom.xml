@@ -10,6 +10,16 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>scaling-event</artifactId>
-
-
+    <dependencies>
+        <dependency>
+            <groupId>org.openspaces</groupId>
+            <artifactId>scaling-common</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.testng</groupId>
+            <artifactId>testng</artifactId>
+            <version>${testngVersion}</version>
+        </dependency>
+    </dependencies>
 </project>

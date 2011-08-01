@@ -14,6 +14,11 @@
     <packaging>war</packaging>
     <dependencies>
         <dependency>
+            <groupId>org.openspaces</groupId>
+            <artifactId>scaling-common</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-webmvc</artifactId>
             <version>${springVersion}</version>
@@ -30,4 +35,19 @@
             <version>1.2</version>
         </dependency>
     </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.mortbay.jetty</groupId>
+                <artifactId>maven-jetty-plugin</artifactId>
+                <version>7.0.0.pre5</version>
+                <configuration>
+                    <scanIntervalSeconds>10</scanIntervalSeconds>
+                    <stopKey>foo</stopKey>
+                    <stopPort>9999</stopPort>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 </project>
