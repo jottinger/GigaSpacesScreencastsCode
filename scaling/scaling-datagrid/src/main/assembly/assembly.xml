@@ -22,7 +22,6 @@
             <outputDirectory>lib</outputDirectory>
             <excludes>
                 <exclude>org.openspaces:scaling-common</exclude>
-                <exclude>org.aspectj:aspectjrt</exclude>
             </excludes>
         </dependencySet>
         <dependencySet>
@@ -30,6 +29,9 @@
             <useTransitiveDependencies>true</useTransitiveDependencies>
             <useTransitiveFiltering>true</useTransitiveFiltering>
             <outputDirectory>lib</outputDirectory>
+            <includes>
+                <include>org.openspaces:scaling-common</include>
+            </includes>
         </dependencySet>
     </dependencySets>
 </assembly>

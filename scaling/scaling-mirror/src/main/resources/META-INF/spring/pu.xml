@@ -46,6 +46,7 @@
         <property name="annotatedClasses">
             <list>
                 <value>org.openspaces.screencasts.scaling.model.Calculation</value>
+                <value>org.openspaces.screencasts.scaling.model.CalculationEventCounter</value>
             </list>
         </property>
         <property name="hibernateProperties">
@@ -72,7 +73,7 @@
         connects to this mirror space into the database using Hibernate.
     -->
     <os-core:mirror id="mirror" url="/./mirror-service" external-data-source="hibernateDataSource">
-		<os-core:source-space name="space" partitions="2" backups="1"/>
+		<os-core:source-space name="scaling-datagrid" partitions="2" backups="1"/>
 	</os-core:mirror>
 
 </beans>

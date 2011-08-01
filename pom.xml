@@ -12,7 +12,7 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <gsVersion>8.0.3-rc</gsVersion>
+        <gsVersion>8.0.3</gsVersion>
         <openJpaVersion>2.1.0</openJpaVersion>
         <springVersion>3.0.5.RELEASE</springVersion>
         <testngVersion>6.1.1</testngVersion>
@@ -28,6 +28,7 @@
             <groupId>com.gigaspaces</groupId>
             <artifactId>gs-openspaces</artifactId>
             <version>${gsVersion}</version>
+            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>org.testng</groupId>

@@ -10,6 +10,18 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>scaling-driver</artifactId>
-
+    <dependencies>
+        <dependency>
+            <groupId>org.openspaces</groupId>
+            <artifactId>scaling-common</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.gigaspaces</groupId>
+            <artifactId>gs-openspaces</artifactId>
+            <version>${gsVersion}</version>
+            <scope>compile</scope>
+        </dependency>
+    </dependencies>
 
 </project>

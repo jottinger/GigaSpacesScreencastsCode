@@ -30,6 +30,7 @@ public class CounterListener {
         }
         counter.setCounter(counter.getCounter() + 1);
         space.write(counter);
+        System.out.println("Handling event "+event);
         return null;
     }
 }

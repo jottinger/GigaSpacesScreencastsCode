@@ -4,11 +4,9 @@ import com.gigaspaces.annotation.pojo.SpaceClass;
 import com.gigaspaces.annotation.pojo.SpaceDynamicProperties;
 import com.gigaspaces.annotation.pojo.SpaceId;
 import com.gigaspaces.annotation.pojo.SpaceProperty;
+import org.hibernate.annotations.CollectionOfElements;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 import java.math.BigInteger;
 import java.util.Set;
 
@@ -38,8 +36,8 @@ public class Calculation {
         this.source = source;
     }
 
-    @SpaceDynamicProperties
-    @OneToMany
+    @SpaceProperty
+    @CollectionOfElements
     public Set<BigInteger> getFactors() {
         return factors;
     }

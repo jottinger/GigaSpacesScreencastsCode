@@ -17,11 +17,6 @@
 
     <dependencies>
         <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-orm</artifactId>
-            <version>${springVersion}</version>
-        </dependency>
-        <dependency>
             <groupId>org.openspaces</groupId>
             <artifactId>scaling-common</artifactId>
             <version>${project.version}</version>

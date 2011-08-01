@@ -13,27 +13,70 @@
        http://www.openspaces.org/schema/events http://www.openspaces.org/schema/events/openspaces-events.xsd
        http://www.openspaces.org/schema/remoting http://www.openspaces.org/schema/remoting/openspaces-remoting.xsd">
 
-    <context:annotation-config />
-    <context:component-scan base-package="org.openspaces.screencasts.scaling.lifecycle" />
-	<tx:annotation-driven transaction-manager="transactionManager"/>
+    <context:annotation-config/>
+    <context:component-scan base-package="org.openspaces.screencasts.scaling.lifecycle"/>
+    <tx:annotation-driven transaction-manager="transactionManager"/>
 
-	<os-core:distributed-tx-manager id="transactionManager" />
+    <os-core:distributed-tx-manager id="transactionManager"/>
 
-	<!-- Enable support for @Polling annotation -->
-	<os-events:annotation-support />
+    <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+        <property name="driverClassName" value="org.hsqldb.jdbcDriver"/>
+        <property name="url" value="jdbc:hsqldb:hsql://localhost/testDB"/>
+        <property name="username" value="sa"/>
+        <property name="password" value=""/>
+    </bean>
 
-	<os-core:space id="space" url="/./scaling-datagrid" />
-	<os-core:giga-space id="gigaSpace" space="space"  tx-manager="transactionManager" />
+    <!--
+        Hibernate SessionFactory bean. Uses the pooled data source to connect to the database.
+    -->
+    <bean id="sessionFactory" class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean">
+        <property name="dataSource" ref="dataSource"/>
+        <property name="annotatedClasses">
+            <list>
+                <value>org.openspaces.screencasts.scaling.model.Calculation</value>
+                <value>org.openspaces.screencasts.scaling.model.CalculationEventCounter</value>
+            </list>
+        </property>
+        <property name="hibernateProperties">
+            <props>
+                <prop key="hibernate.dialect">org.hibernate.dialect.HSQLDialect</prop>
+                <prop key="hibernate.cache.provider_class">org.hibernate.cache.NoCacheProvider</prop>
+                <prop key="hibernate.cache.use_second_level_cache">false</prop>
+                <prop key="hibernate.cache.use_query_cache">false</prop>
+            </props>
+        </property>
+    </bean>
 
-	<!--<os-core:local-cache id="localCacheSpace" space="space">
-	    <os-core:properties>
-	        <props>
-	            <prop key="space-config.filters.Statistics.enabled">false</prop>
-	        </props>
-	    </os-core:properties>
-	</os-core:local-cache>
+    <bean id="hibernateDataSource" class="org.openspaces.persistency.hibernate.DefaultHibernateExternalDataSource">
+        <property name="sessionFactory" ref="sessionFactory"/>
+    </bean>
 
-	<os-core:giga-space id="gigaSpaceLocalCache" space="localCacheSpace" tx-manager="transactionManager"/>
+    <!-- Enable support for @Polling annotation -->
+    <os-events:annotation-support/>
+
+    <os-core:space id="space" url="/./scaling-datagrid" mirror="true"
+                   schema="persistent" external-data-source="hibernateDataSource">
+        <os-core:properties>
+            <props>
+                <!-- Use ALL IN CACHE -->
+                <prop key="space-config.engine.cache_policy">1</prop>
+                <prop key="space-config.external-data-source.usage">read-only</prop>
+                <prop key="cluster-config.cache-loader.external-data-source">true</prop>
+                <prop key="cluster-config.cache-loader.central-data-source">true</prop>
+            </props>
+        </os-core:properties>
+    </os-core:space>
+    <os-core:giga-space id="gigaSpace" space="space" tx-manager="transactionManager"/>
+
+    <!--<os-core:local-cache id="localCacheSpace" space="space">
+        <os-core:properties>
+            <props>
+                <prop key="space-config.filters.Statistics.enabled">false</prop>
+            </props>
+        </os-core:properties>
+    </os-core:local-cache>
+
+    <os-core:giga-space id="gigaSpaceLocalCache" space="localCacheSpace" tx-manager="transactionManager"/>
     -->
     <os-core:giga-space-context/>
     <os-remoting:annotation-support/>

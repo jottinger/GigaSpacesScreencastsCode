@@ -18,8 +18,10 @@ public class CounterInitBean implements InitializingBean {
     @Autowired
     GigaSpace space;
 
+
     @Override
     public void afterPropertiesSet() throws Exception {
+        System.out.println("CounterInitBean running");
         for (int i = 0; i < 10; i++) {
             CalculationEvent template=new CalculationEvent();
             template.setDigit(i);
@@ -27,6 +29,7 @@ public class CounterInitBean implements InitializingBean {
                     .template(template)
                     .eventListenerAnnotation(new CounterListener(space, i))
                     .pollingContainer();
+            System.out.println("Started event listener for "+i);
         }
     }
 }
