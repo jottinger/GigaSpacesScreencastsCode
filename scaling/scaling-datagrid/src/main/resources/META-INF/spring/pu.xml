@@ -13,6 +13,8 @@
        http://www.openspaces.org/schema/events http://www.openspaces.org/schema/events/openspaces-events.xsd
        http://www.openspaces.org/schema/remoting http://www.openspaces.org/schema/remoting/openspaces-remoting.xsd">
 
+    <context:annotation-config />
+    <context:component-scan base-package="org.openspaces.screencasts.scaling.lifecycle" />
 	<tx:annotation-driven transaction-manager="transactionManager"/>
 
 	<os-core:distributed-tx-manager id="transactionManager" />

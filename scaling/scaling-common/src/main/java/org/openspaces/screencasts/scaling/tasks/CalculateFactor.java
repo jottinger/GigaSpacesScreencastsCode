@@ -1,5 +1,8 @@
 package org.openspaces.screencasts.scaling.tasks;
 
+import org.openspaces.core.GigaSpace;
+import org.openspaces.core.executor.TaskGigaSpace;
+
 import java.math.BigInteger;
 import java.util.*;
 import java.util.concurrent.Callable;

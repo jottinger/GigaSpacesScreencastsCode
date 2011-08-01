@@ -5,10 +5,15 @@ import com.gigaspaces.annotation.pojo.SpaceDynamicProperties;
 import com.gigaspaces.annotation.pojo.SpaceId;
 import com.gigaspaces.annotation.pojo.SpaceProperty;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import java.math.BigInteger;
 import java.util.Set;
 
 @SpaceClass
+@Entity
 public class Calculation {
     String id;
     BigInteger source;
@@ -16,6 +21,8 @@ public class Calculation {
     Boolean processed;
     String eventClass;
 
+    @Column
+    @SpaceProperty
     public String getEventClass() {
         return eventClass;
     }
@@ -32,6 +39,7 @@ public class Calculation {
     }
 
     @SpaceDynamicProperties
+    @OneToMany
     public Set<BigInteger> getFactors() {
         return factors;
     }
@@ -41,6 +49,7 @@ public class Calculation {
     }
 
     @SpaceId(autoGenerate = true)
+    @Id
     public String getId() {
         return id;
     }
@@ -50,6 +59,7 @@ public class Calculation {
     }
 
     @SpaceProperty
+    @Column
     public BigInteger getSource() {
         return source;
     }
@@ -58,6 +68,8 @@ public class Calculation {
         this.source = source;
     }
 
+    @Column
+    @SpaceProperty
     public Boolean getProcessed() {
         return processed;
     }
